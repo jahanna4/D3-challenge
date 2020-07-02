@@ -21,7 +21,7 @@ d3.csv("assets/data/data.csv").then(function(statedata) {
         data.income = +data.income;
         data.obesity = +data.obesity;
     });
-    console.log(statedata);
+    // console.log(statedata);
 
     var xscale = d3.scaleLinear().domain([d3.min(statedata, d=> d.obesity)*.9, d3.max(statedata, d=> d.obesity)*1.05]).range([0,width]);
     var yscale = d3.scaleLinear().domain([d3.min(statedata, d=>d.income)*.9, d3.max(statedata, d=>d.income)*1.025]).range([height,0]);
@@ -33,7 +33,6 @@ d3.csv("assets/data/data.csv").then(function(statedata) {
     chartgp.append("text").attr("transform", "rotate(-90)").attr("y", 0-margin.left).attr("x", 0-(height/2)).attr("dy","1em").attr("class", "axisText").text("Income");
     chartgp.append("text").attr("transform", `translate(${width/2}, ${height + margin.top + 35})`).attr("class", "axisText").text("Obesity");
 
-    var points = chartgp.selectAll("circle").data(statedata).enter().append("circle").attr("cx", d=>xscale(d.obesity)).attr("cy", d=>yscale(d.income)).attr("r", "10").attr("fill", "blue").attr("opacity", ".75");
-    // var pointlabels = chartgp.append("text").text(statedata, d=> d.abbr);
+    chartgp.selectAll("circle").data(statedata).enter().append("circle").attr("cx", d =>xscale(d.obesity)).attr("cy", d=>yscale(d.income)).attr("r", "10").attr("fill", "blue").attr("opacity", ".75");
 
 });
